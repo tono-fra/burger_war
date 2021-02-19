@@ -35,7 +35,7 @@ class RandomBot():
             th = 1
         elif value < 1000:
             x = 0
-            th = -1
+            th = 1
         else:
             x = 0
             th = 0
@@ -52,8 +52,15 @@ class RandomBot():
         control_speed = 0
         control_turn = 0
 
+	t = 0
         while not rospy.is_shutdown():
             twist = self.calcTwist()
+
+	    if t < 3:
+	    	twist.liner.x = 0.2
+	    	twist.angular.z = 0
+		t=t+1
+
             print(twist)
             self.vel_pub.publish(twist)
 
